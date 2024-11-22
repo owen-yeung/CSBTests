@@ -38,9 +38,9 @@ JOB_1 = {
    "JOB_TITLE": "Test Job Title 1",
    "DUTIES": "Test Duties 1",
    "START_DATE": "01/01/2020",
-   "END_DATE": "01/01/2021",
-   "FULL_TIME": "Y",
-   "PART_TIME": "N",
+   "END_DATE": "01/01/2022",
+   "FULL_TIME": "N",
+   "PART_TIME": "Y",
 }
 
 
@@ -54,15 +54,14 @@ JOB_2 = {
    "PART_TIME": "Y",
 }
 # create empty dataframe
-df = pd.DataFrame(columns=columns)
+EMPLOYMENT_HISTORY = pd.DataFrame(columns=columns)
 
 
 # add rows
-df = df.append(JOB_1, ignore_index=True)
-df = df.append(JOB_2, ignore_index=True)
+EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY.append(JOB_1, ignore_index=True)
+EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY.append(JOB_2, ignore_index=True)
 
-
-def run(playwright):
+def run(playwright, employment_history):
     # Launch the browser
     browser = playwright.chromium.launch(headless=False)  # Set headless=True for headless mode
     context = browser.new_context()
@@ -174,27 +173,47 @@ def run(playwright):
     # Fill mobile number gf340from_field_tele1
     page.fill('#gf340from_field_tele1', USER_INPUTS["MOBILE_NUMBER"])
     
+    
+    
+    # EMPLOYMENT HISTORY
+    # Goal: Identify all the possible errors. This is a rich source of errors (and also where the value is).
+    
+    for i in range(len(employment_history)):
+        job = employment_history.iloc[i]
+        # Fill employer empfirm0, empfirm1, ...
+        page.fill(f'#empfirm{i}', job["EMPLOYER"])
+        # Fill position emppos0, emppos1, ...
+        page.fill(f'#emppos{i}', job["JOB_TITLE"])
+        # Fill nature of work empnature0, empnature1, ...
+        page.fill(f'#empnature{i}', job["DUTIES"])
+        # Fill full time checkbox emptype0-1, emptype1-1, ...
+        if job["FULL_TIME"] == "Y":
+            page.click(f'#emptype{i}-1')
+        # Fill part time checkbox emptype10-1, emptype11-1, ...
+        if job["PART_TIME"] == "Y":
+            page.click(f'#emptype{i}0-1')
+        # Fill dates DateForm0, DateEmpoto0, DateForm1, DateEmpoto1, ...
+        page.fill(f'#DateForm{i}', job["START_DATE"])
+        page.fill(f'#DateEmpoto{i}', job["END_DATE"])
+        
+    
+    # Employer: empfirm0, empfirm1, ...
+    # Position: emppos0, emppos1, ...
+    # Nature of Work: empnature0, empnature1, ...
+    # Full time checkbox: emptype0-1, emptype1-1, ...
+    # Part time checkbox: emptype10-1, emptype11-1, ...
+    # Dates: DateForm0, DateEmpoto0, DateForm1, DateEmpoto1, ...
+    
+    # SUBMISSION
     # Submit with confirmButton
     page.click('#confirmButton.btn_mouseout_red')
     
     # COMMENT OUT TO AVOID ACTUAL REQUESTS Submit with submitButton
     # page.click('#submitButton')
     
-    # EMPLOYMENT HISTORY
-    # Goal: Identify all the possible errors. This is a rich source of errors (and also where the value is).
-    
-    # Dates: DateForm0, DateEmpoto0, DateForm1, DateEmpoto1, ...
-    # Employer: empfirm0, empfirm1, ...
-    # Position: emppos0, emppos1, ...
-    # Nature of Work: empnature0, empnature1, ...
-    # Full time checkbox: emptype0-1, emptype1-1, ...
-    # Part time checkbox: emptype10-1, emptype11-1, ...
-    
-    
-    
     
     # Optional: Wait to see the result
     page.wait_for_timeout(200000)  # Wait for 200 seconds
 
 with sync_playwright() as playwright:
-    run(playwright)
+    run(playwright, EMPLOYMENT_HISTORY)
