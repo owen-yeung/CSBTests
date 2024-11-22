@@ -1,4 +1,5 @@
 from playwright.sync_api import sync_playwright
+import pandas as pd
 
 
 APPLICATION_LINK = 'https://csboa2.csb.gov.hk/csboa/jve/JVE_002_popupCheckList.action?languageType=2&extractDto.selectNo=47155&extractDto.onlineGF340=Y'
@@ -25,6 +26,41 @@ USER_INPUTS = {
     "GUILTY_OF_OFFENCE": "N",
     
 }
+
+
+
+# define columns
+columns = ["EMPLOYER", "JOB_TITLE", "DUTIES", "START_DATE", "END_DATE", "FULL_TIME", "PART_TIME"]
+
+
+JOB_1 = {
+   "EMPLOYER": "Test Employer 1",
+   "JOB_TITLE": "Test Job Title 1",
+   "DUTIES": "Test Duties 1",
+   "START_DATE": "01/01/2020",
+   "END_DATE": "01/01/2021",
+   "FULL_TIME": "Y",
+   "PART_TIME": "N",
+}
+
+
+JOB_2 = {
+   "EMPLOYER": "Test Employer 2",
+   "JOB_TITLE": "Test Job Title 2",
+   "DUTIES": "Test Duties 2",
+   "START_DATE": "01/01/2021",
+   "END_DATE": "01/01/2022",
+   "FULL_TIME": "N",
+   "PART_TIME": "Y",
+}
+# create empty dataframe
+df = pd.DataFrame(columns=columns)
+
+
+# add rows
+df = df.append(JOB_1, ignore_index=True)
+df = df.append(JOB_2, ignore_index=True)
+
 
 def run(playwright):
     # Launch the browser
@@ -141,12 +177,20 @@ def run(playwright):
     # Submit with confirmButton
     page.click('#confirmButton.btn_mouseout_red')
     
-    # Submit with submitButton
+    # COMMENT OUT TO AVOID ACTUAL REQUESTS Submit with submitButton
     # page.click('#submitButton')
     
     # EMPLOYMENT HISTORY
+    # Goal: Identify all the possible errors. This is a rich source of errors (and also where the value is).
     
     # Dates: DateForm0, DateEmpoto0, DateForm1, DateEmpoto1, ...
+    # Employer: empfirm0, empfirm1, ...
+    # Position: emppos0, emppos1, ...
+    # Nature of Work: empnature0, empnature1, ...
+    # Full time checkbox: emptype0-1, emptype1-1, ...
+    # Part time checkbox: emptype10-1, emptype11-1, ...
+    
+    
     
     
     # Optional: Wait to see the result
