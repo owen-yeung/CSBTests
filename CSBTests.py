@@ -58,8 +58,8 @@ EMPLOYMENT_HISTORY = pd.DataFrame(columns=columns)
 
 
 # add rows
-EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY.append(JOB_1, ignore_index=True)
-EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY.append(JOB_2, ignore_index=True)
+EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY._append(JOB_1, ignore_index=True)
+EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY._append(JOB_2, ignore_index=True)
 
 def run(playwright, employment_history):
     # Launch the browser
@@ -186,23 +186,18 @@ def run(playwright, employment_history):
         page.fill(f'#emppos{i}', job["JOB_TITLE"])
         # Fill nature of work empnature0, empnature1, ...
         page.fill(f'#empnature{i}', job["DUTIES"])
+        # wait for debug
+        # page.wait_for_timeout(2000000)
         # Fill full time checkbox emptype0-1, emptype1-1, ...
         if job["FULL_TIME"] == "Y":
             page.click(f'#emptype{i}-1')
         # Fill part time checkbox emptype10-1, emptype11-1, ...
         if job["PART_TIME"] == "Y":
-            page.click(f'#emptype{i}0-1')
-        # Fill dates DateForm0, DateEmpoto0, DateForm1, DateEmpoto1, ...
+            page.click(f'#emptype1{i}-1')
+        # Fill dates DateForm0, DateEmpto0, DateForm1, DateEmpto1, ...
         page.fill(f'#DateForm{i}', job["START_DATE"])
-        page.fill(f'#DateEmpoto{i}', job["END_DATE"])
+        page.fill(f'#DateEmpto{i}', job["END_DATE"])
         
-    
-    # Employer: empfirm0, empfirm1, ...
-    # Position: emppos0, emppos1, ...
-    # Nature of Work: empnature0, empnature1, ...
-    # Full time checkbox: emptype0-1, emptype1-1, ...
-    # Part time checkbox: emptype10-1, emptype11-1, ...
-    # Dates: DateForm0, DateEmpoto0, DateForm1, DateEmpoto1, ...
     
     # SUBMISSION
     # Submit with confirmButton
