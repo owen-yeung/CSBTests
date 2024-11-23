@@ -3,9 +3,16 @@ import pandas as pd
 
 
 
-def run(playwright, employment_history, application_link, user_inputs, wait=0):
+def run(playwright, employment_history, application_link, user_inputs, wait=0, browser='chromium'):
     # Launch the browser
-    browser = playwright.chromium.launch(headless=False)  # Set headless=True for headless mode
+    if browser == 'chromium':
+        browser = playwright.chromium.launch(headless=False)  # Set headless=True for headless mode
+    elif browser == 'firefox':
+        browser = playwright.firefox.launch(headless=False)
+    elif browser == 'webkit':
+        browser = playwright.webkit.launch(headless=False)
+    else:
+        raise ValueError(f"Browser {browser} not supported")
     context = browser.new_context()
     page = context.new_page()
 

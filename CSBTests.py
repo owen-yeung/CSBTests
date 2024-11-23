@@ -97,7 +97,7 @@ class TestCSB(unittest.TestCase):
         EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY._append(NEW_JOB_3, ignore_index=True)
         with sync_playwright() as playwright:
             run(playwright, EMPLOYMENT_HISTORY, APPLICATION_LINK, USER_INPUTS, 
-                wait=2000000
+                wait=200000
                 )
             
     def test_three_3(self):
@@ -130,7 +130,7 @@ class TestCSB(unittest.TestCase):
         EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY._append(NEW_JOB_3, ignore_index=True)
         with sync_playwright() as playwright:
             run(playwright, EMPLOYMENT_HISTORY, APPLICATION_LINK, USER_INPUTS, 
-                wait=2000000
+                wait=200000
                 )
     
     def test_two_1(self):
@@ -155,7 +155,7 @@ class TestCSB(unittest.TestCase):
         EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY._append(NEW_JOB_2, ignore_index=True)
         with sync_playwright() as playwright:
             run(playwright, EMPLOYMENT_HISTORY, APPLICATION_LINK, USER_INPUTS,
-                wait=2000000
+                wait=200000
                 )
             
     def test_two_2(self):
@@ -180,7 +180,7 @@ class TestCSB(unittest.TestCase):
         EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY._append(NEW_JOB_2, ignore_index=True)
         with sync_playwright() as playwright:
             run(playwright, EMPLOYMENT_HISTORY, APPLICATION_LINK, USER_INPUTS, 
-                wait=2000000
+                wait=200000
                 )
             
     def test_one_future(self):
@@ -199,7 +199,7 @@ class TestCSB(unittest.TestCase):
         # EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY._append(NEW_JOB_2, ignore_index=True)
         with sync_playwright() as playwright:
             run(playwright, EMPLOYMENT_HISTORY, APPLICATION_LINK, USER_INPUTS, 
-                wait=2000000
+                wait=200000
                 )
             
     def test_one_part_and_full_time(self):
@@ -218,7 +218,7 @@ class TestCSB(unittest.TestCase):
         # EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY._append(NEW_JOB_2, ignore_index=True)
         with sync_playwright() as playwright:
             run(playwright, EMPLOYMENT_HISTORY, APPLICATION_LINK, USER_INPUTS, 
-                wait=2000000
+                wait=200000
                 )
             
             
@@ -237,7 +237,7 @@ class TestCSB(unittest.TestCase):
         # EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY._append(NEW_JOB_2, ignore_index=True)
         with sync_playwright() as playwright:
             run(playwright, EMPLOYMENT_HISTORY, APPLICATION_LINK, USER_INPUTS, 
-                wait=2000000
+                wait=200000
                 )
             
     def test_invalid_date(self):
@@ -255,7 +255,8 @@ class TestCSB(unittest.TestCase):
         # EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY._append(NEW_JOB_2, ignore_index=True)
         with sync_playwright() as playwright:
             run(playwright, EMPLOYMENT_HISTORY, APPLICATION_LINK, USER_INPUTS, 
-                wait=2000000
+                wait=200000,
+                browser='webkit'
                 )
             
     
