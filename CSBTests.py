@@ -183,7 +183,7 @@ class TestCSB(unittest.TestCase):
                 wait=2000000
                 )
             
-    def test_future(self):
+    def test_one_future(self):
         new_job_1_dates = {
             "START_DATE": "01/01/2020",
             "END_DATE": "01/01/2030",
@@ -191,6 +191,62 @@ class TestCSB(unittest.TestCase):
         
         # update job_1 dates
         NEW_JOB_1 = {**JOB_1, **new_job_1_dates}
+        
+        # create empty dataframe
+        EMPLOYMENT_HISTORY = pd.DataFrame(columns=columns)
+        # add rows
+        EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY._append(NEW_JOB_1, ignore_index=True)
+        # EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY._append(NEW_JOB_2, ignore_index=True)
+        with sync_playwright() as playwright:
+            run(playwright, EMPLOYMENT_HISTORY, APPLICATION_LINK, USER_INPUTS, 
+                wait=2000000
+                )
+            
+    def test_one_part_and_full_time(self):
+        new_job_1 = {
+            "PART_TIME": "Y",
+            "FULL_TIME": "Y",
+        }
+        
+        # update job_1 dates
+        NEW_JOB_1 = {**JOB_1, **new_job_1}
+        
+        # create empty dataframe
+        EMPLOYMENT_HISTORY = pd.DataFrame(columns=columns)
+        # add rows
+        EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY._append(NEW_JOB_1, ignore_index=True)
+        # EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY._append(NEW_JOB_2, ignore_index=True)
+        with sync_playwright() as playwright:
+            run(playwright, EMPLOYMENT_HISTORY, APPLICATION_LINK, USER_INPUTS, 
+                wait=2000000
+                )
+            
+            
+    def test_one_blank_ongoing(self):
+        new_job_1 = {
+            "END_DATE": "",
+        }
+        
+        # update job_1 dates
+        NEW_JOB_1 = {**JOB_1, **new_job_1}
+        
+        # create empty dataframe
+        EMPLOYMENT_HISTORY = pd.DataFrame(columns=columns)
+        # add rows
+        EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY._append(NEW_JOB_1, ignore_index=True)
+        # EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY._append(NEW_JOB_2, ignore_index=True)
+        with sync_playwright() as playwright:
+            run(playwright, EMPLOYMENT_HISTORY, APPLICATION_LINK, USER_INPUTS, 
+                wait=2000000
+                )
+            
+    def test_invalid_date(self):
+        new_job_1 = {
+            "END_DATE": "31/02/2028",
+        }
+        
+        # update job_1 dates
+        NEW_JOB_1 = {**JOB_1, **new_job_1}
         
         # create empty dataframe
         EMPLOYMENT_HISTORY = pd.DataFrame(columns=columns)
