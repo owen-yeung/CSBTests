@@ -56,17 +56,153 @@ JOB_2 = {
    "PART_TIME": "Y",
 }
 
-
+JOB_3 = {
+    "EMPLOYER": "Test Employer 3",
+    "JOB_TITLE": "Test Job Title 3",
+    "DUTIES": "Test Duties 3",
+    "START_DATE": "01/01/2020",
+    "END_DATE": "01/01/2023",
+    "FULL_TIME": "N",
+    "PART_TIME": "Y",
+}
         
 class TestCSB(unittest.TestCase):
-    def test_base(self):
+    def test_three_2(self):
+        new_job_1_dates = {
+            "START_DATE": "01/01/2021",
+            "END_DATE": "01/01/2023",
+        }
+        new_job_2_dates = {
+            "START_DATE": "01/01/2020",
+            "END_DATE": "01/01/2022",
+        }
+        
+        new_job_3_dates = {
+            "START_DATE": "01/01/2019",
+            "END_DATE": "01/01/2021",
+        }
+        
+        # update job_1 dates
+        NEW_JOB_1 = {**JOB_1, **new_job_1_dates}
+        # update job_2 dates
+        NEW_JOB_2 = {**JOB_2, **new_job_2_dates}
+        # update job_3 dates
+        NEW_JOB_3 = {**JOB_3, **new_job_3_dates}
+        
         # create empty dataframe
         EMPLOYMENT_HISTORY = pd.DataFrame(columns=columns)
         # add rows
-        EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY._append(JOB_1, ignore_index=True)
-        EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY._append(JOB_2, ignore_index=True)
+        EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY._append(NEW_JOB_1, ignore_index=True)
+        EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY._append(NEW_JOB_2, ignore_index=True)
+        EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY._append(NEW_JOB_3, ignore_index=True)
         with sync_playwright() as playwright:
-            run(playwright, EMPLOYMENT_HISTORY, APPLICATION_LINK, USER_INPUTS)
+            run(playwright, EMPLOYMENT_HISTORY, APPLICATION_LINK, USER_INPUTS, 
+                wait=2000000
+                )
+            
+    def test_three_3(self):
+        new_job_1_dates = {
+            "START_DATE": "01/01/2019",
+            "END_DATE": "01/01/2021",
+        }
+        new_job_2_dates = {
+            "START_DATE": "01/01/2020",
+            "END_DATE": "01/01/2022",
+        }
+        
+        new_job_3_dates = {
+            "START_DATE": "01/01/2021",
+            "END_DATE": "01/01/2023",
+        }
+        
+        # update job_1 dates
+        NEW_JOB_1 = {**JOB_1, **new_job_1_dates}
+        # update job_2 dates
+        NEW_JOB_2 = {**JOB_2, **new_job_2_dates}
+        # update job_3 dates
+        NEW_JOB_3 = {**JOB_3, **new_job_3_dates}
+        
+        # create empty dataframe
+        EMPLOYMENT_HISTORY = pd.DataFrame(columns=columns)
+        # add rows
+        EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY._append(NEW_JOB_1, ignore_index=True)
+        EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY._append(NEW_JOB_2, ignore_index=True)
+        EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY._append(NEW_JOB_3, ignore_index=True)
+        with sync_playwright() as playwright:
+            run(playwright, EMPLOYMENT_HISTORY, APPLICATION_LINK, USER_INPUTS, 
+                wait=2000000
+                )
+    
+    def test_two_1(self):
+        new_job_1_dates = {
+            "START_DATE": "01/01/2020",
+            "END_DATE": "01/01/2021",
+        }
+        new_job_2_dates = {
+            "START_DATE": "01/01/2020",
+            "END_DATE": "01/01/2022",
+        }
+        
+        # update job_1 dates
+        NEW_JOB_1 = {**JOB_1, **new_job_1_dates}
+        # update job_2 dates
+        NEW_JOB_2 = {**JOB_2, **new_job_2_dates}
+        
+        # create empty dataframe
+        EMPLOYMENT_HISTORY = pd.DataFrame(columns=columns)
+        # add rows
+        EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY._append(NEW_JOB_1, ignore_index=True)
+        EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY._append(NEW_JOB_2, ignore_index=True)
+        with sync_playwright() as playwright:
+            run(playwright, EMPLOYMENT_HISTORY, APPLICATION_LINK, USER_INPUTS,
+                wait=2000000
+                )
+            
+    def test_two_2(self):
+        new_job_1_dates = {
+            "START_DATE": "01/01/2020",
+            "END_DATE": "01/01/2022",
+        }
+        new_job_2_dates = {
+            "START_DATE": "01/01/2020",
+            "END_DATE": "01/01/2021",
+        }
+        
+        # update job_1 dates
+        NEW_JOB_1 = {**JOB_1, **new_job_1_dates}
+        # update job_2 dates
+        NEW_JOB_2 = {**JOB_2, **new_job_2_dates}
+        
+        # create empty dataframe
+        EMPLOYMENT_HISTORY = pd.DataFrame(columns=columns)
+        # add rows
+        EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY._append(NEW_JOB_1, ignore_index=True)
+        EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY._append(NEW_JOB_2, ignore_index=True)
+        with sync_playwright() as playwright:
+            run(playwright, EMPLOYMENT_HISTORY, APPLICATION_LINK, USER_INPUTS, 
+                wait=2000000
+                )
+            
+    def test_future(self):
+        new_job_1_dates = {
+            "START_DATE": "01/01/2020",
+            "END_DATE": "01/01/2030",
+        }
+        
+        # update job_1 dates
+        NEW_JOB_1 = {**JOB_1, **new_job_1_dates}
+        
+        # create empty dataframe
+        EMPLOYMENT_HISTORY = pd.DataFrame(columns=columns)
+        # add rows
+        EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY._append(NEW_JOB_1, ignore_index=True)
+        # EMPLOYMENT_HISTORY = EMPLOYMENT_HISTORY._append(NEW_JOB_2, ignore_index=True)
+        with sync_playwright() as playwright:
+            run(playwright, EMPLOYMENT_HISTORY, APPLICATION_LINK, USER_INPUTS, 
+                wait=2000000
+                )
+            
+    
 
 if __name__ == '__main__':
     unittest.main()

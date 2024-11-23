@@ -3,7 +3,7 @@ import pandas as pd
 
 
 
-def run(playwright, employment_history, application_link, user_inputs):
+def run(playwright, employment_history, application_link, user_inputs, wait=0):
     # Launch the browser
     browser = playwright.chromium.launch(headless=False)  # Set headless=True for headless mode
     context = browser.new_context()
@@ -145,12 +145,26 @@ def run(playwright, employment_history, application_link, user_inputs):
     # Submit with confirmButton
     page.click('#confirmButton.btn_mouseout_red')
     
+    # Check if error
+    # Try to select the error message element
+    error_message_element = page.query_selector('#errorMsgId')
+
+    # Check if the element is present
+    if error_message_element:
+        # Wait
+        page.wait_for_timeout(2000000)
+        
+    else:
+        # Optionally handle the case where the element is not found
+        print("No error message present.")
+    
     # COMMENT OUT TO AVOID ACTUAL REQUESTS Submit with submitButton
     # page.click('#submitButton')
     
     
     # Optional: Wait to see the result
-    page.wait_for_timeout(200000)  # Wait for 200 seconds
+    if wait > 0:
+        page.wait_for_timeout(wait)  # Wait for 200 seconds
 
 
         
